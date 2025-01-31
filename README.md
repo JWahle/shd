@@ -83,3 +83,10 @@ table:
   | cell1   | cell2   |
   | cell3   | cell4   |
 ```
+
+# Formal grammar
+TODO: give formal syntax
+
+number ::= integer | float
+expression ::= number OP number | expression OP expression | (expression)
+OP ::= + | - | * | /
