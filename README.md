@@ -59,15 +59,15 @@ Indentation is always done via spaces. 1 level of indentation = 2 spaces.
 No other whitespace is allowed for indentation.
 
 ### Attributes and values
-Attributes can contain single or multi line values.
+Attributes consist of an attribute name and an associated value.
+Values can be single or multi line.
 In any case, the interpretation of the value is left to the program reading the file.
 There are no data types.
 All value data is treated the same with respect to parsing.
 Different behavior has to be specified by the consuming application.
 
 #### Single line values
-An attribute with a single line value is of the form `name: value`,
-where the `name` has the exact same constraints as a node name.
+An attribute with a single line value is of the form `name: value`.
 The space after the colon is not optional.
 The `value` can contain any character other than a line break.
 All other characters up to the line break are considered part of the value.
@@ -77,7 +77,6 @@ attribute: value
 
 #### Multi line values
 Multi line values are indicated by 2 additional levels of indentation after the value name.
-The attribute name has where the `name` has the exact same constraints as a node name.
 The `value` can contain any character data.
 The indentation and the last line break are not part of the value.
 ```
