@@ -1,4 +1,4 @@
-# Draft: Simple Hierarchical Data (shd) or alternatively sYAML (simplified YAML)
+# Draft: Simple Hierarchical Data (SHD)
 A simple hierarchical data format with the human readability of YAML but much simpler semantics.
 
 ## Motivation
@@ -29,7 +29,7 @@ list-node:
 ### end of file marker
 
 To be able to determine whether a document was cut off,
-the end of every document is marked by a line-break and colon (`:`).  
+the end of every document is marked by a line-break and colon (`:`).
 After the colon, no more characters are allowed.
 ```
 first-node
@@ -44,13 +44,13 @@ A document can also be empty:
 
 ### Nodes
 Node names can contain letters, digits, underscores and dashes (`a-z A-Z 0-9 _ -` without the spaces).
+Node names can not be empty.  
 The only exception to this is the root of the document, which is an invisible nameless pseudo node.
 Nodes can contain either
 - any number of nodes and attribute/value pairs
 - value list items
 - node list items
 
-Nodes can not be empty.  
 All child names have to be unique - no two children can have the same name.  
 All children of a node have to be indented one level higher than their parent node.
 
@@ -99,12 +99,14 @@ list-of-values:
 Or all items are nodes, attribute/value pairs or further lists - all of which can be mixed in one list.
 ```
 list-of-things:
-  - attribute1: item1
+  : attribute1: item1
     attribute2: item2
-  - node:
+  : node:
       attribute: value
-  - - sub1
+  : - sub1
     - sub2
+  : : attribute: value
+    : attribute: value
 ```
 
 ### Comments
