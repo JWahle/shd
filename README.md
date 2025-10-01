@@ -137,23 +137,26 @@ list-of-things:
 ```
 
 # Formal grammar
-TODO: give formal syntax
+```
+name ::= `[a-zA-Z0-9_-]+` (one or more letters, digits, underscores, or dashes)
+value ::= `[^\n\r]*` (any characters except newline/carriage return)
+⏎ ::= `\n` | `\r\n` | `\r`
 end ::= ":" EOF
+
 document ::= element(0) end | value-item(0) end | element-item(0) end | end
 element(n) ::= element(n) element(n) | comment(n) | node(n) | attribute(n) | multi-line-attribute(n) | value-list(n) | element-list(n)
 indent(n) ::= "  " * n         (2n spaces)
 comment(n) ::= indent(n) "#" value
-name ::= (any string consisting of `a-z A-Z 0-9 _ -`)
 element-name(n) ::= indent(n) name ":⏎"
 node(n) ::= element-name(n) element(n+1)
 attribute(n) ::= indent(n) name ": " value ":⏎"
-value ::= (any string without newline characters) TODO: what is a newline?
 multi-line-attribute(n) ::= indent(n) name ":⏎" multi-line-value(n+2)
 multi-line-value(n) ::= indent(n) value "⏎" | indent(n) value "⏎" multi-line-value (n)
 value-list(n) ::= element-name(n) value-item(n+1)
 value-item(n) ::= indent(n) "- " value
 element-list(n) ::= element-name(n) element-item(n+1)
 element-item(n) ::= indent(n) ": " element(0) TODO: make this work
+```
 
 ## Features we might want
 Features in this section are not part of the specification, but are being considered for addition. 
