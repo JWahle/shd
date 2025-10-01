@@ -10,7 +10,7 @@ The data format should have the following properties:
 - only one way to do one thing
 
 ## Document structure
-An SHD document consists of nodes, attributes and/or lists followed by a file end marker.
+An SHD document consists of nodes, attributes, comments and/or lists followed by a file end marker.
 ```
 top-node:
   some-attribute: value
@@ -110,9 +110,9 @@ list-of-things:
 ```
 
 ### Comments
-Lines where the first non-tab character is a hash (`#`) followed by a space are comments.
+Lines where the first non-space character is a hash (`#`) followed by a space are comments.
 They will be discarded during parsing.
-Same indentation as with attributes.
+Comments have to be indented similar to normal attributes.
 ```
 # comment
 node:
@@ -128,14 +128,21 @@ list:
   - first item
   # comment before second item
   - second item
+list-of-things:
+  # comment before first item
+  : first item
+  # comment before second item
+  : : nested list
+    # nested comment
 ```
 
 # Formal grammar
 TODO: give formal syntax
-
+end ::= ":" EOF
 document ::= element(0) end | value-item(0) end | element-item(0) end | end
 element(n) ::= element(n) element(n) | comment(n) | node(n) | attribute(n) | multi-line-attribute(n) | value-list(n) | element-list(n)
 indent(n) ::= "  " * n         (2n spaces)
+comment(n) ::= indent(n) "#" value
 name ::= (any string consisting of `a-z A-Z 0-9 _ -`)
 element-name(n) ::= indent(n) name ":⏎"
 node(n) ::= element-name(n) element(n+1)
@@ -156,12 +163,12 @@ Features in this section are not part of the specification, but are being consid
 ### Schemas
 
 ### Tables
+If you need a table, embed a CSV table in a multi-line-attribute and use `|` as separator:
 ```
 table:
-  | header1 | header2 |
-  |---------|---------|
-  | cell1   | cell2   |
-  | cell3   | cell4   |
+    | header1 | header2 |
+    | cell1   | cell2   |
+    | cell3   | cell4   |
 ```
 
 ### Optional additional semantics
